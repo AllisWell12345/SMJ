@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+
+<body>
+    <!-- 연습1) 아래 변수에 저장된 값을 <div> 태그로 화면에 표시하세요. -->
+    <div id="root1"></div>
+    <script type="text/babel">
+
+        const name = 'Tom'
+
+        ReactDOM.createRoot(document.getElementById('root1')).render(<div>{name}</div>);
+    </script>
+
+    <hr>
+    <!-- 연습2) 아래 객체에 저장된 값 중 model 속성만 <div> 태그로 화면에 표시하세요. -->
+    <div id="root2"></div>
+    <script type="text/babel">
+
+        const car = {
+            model: 'sorento',
+            price: 4000,
+        };
+
+        ReactDOM.createRoot(document.getElementById('root2')).render(<div>{car.model}</div>);
+    </script>
+
+    <hr>
+    <!-- 연습3) 아래 score 값이 60 이상이면 "합격", 아니면 "불합격"을 <div> 태그로 화면에 표시하세요. -->
+    <div id="root3"></div>
+    <script type="text/babel">
+        const score = 80;
+
+        const resultMessage = score >= 60
+            ? <span>합격</span>
+            : <span>불합격</span>;
+
+        ReactDOM.createRoot(document.getElementById('root3')).render(resultMessage);
+    </script>
+
+    <hr>
+    <!-- 연습4) 아래 변수에 저장된 값이 없으면 "값없음", 값이 있으면 저장된 값을 <div> 태그로 화면에 표시하세요. -->
+    <div id="root4"></div>
+    <script type="text/babel">
+
+        let value = 2;
+        const content = value
+            ? <span>{value}</span>
+            : <span>값없음</span>;
+
+        ReactDOM.createRoot(document.getElementById('root4')).render(content);
+    </script>
+
+    <hr>
+    <!-- 연습5) 아래 color 값이 "r"이면 "red", "g"이면 "green", "b"이면 "blue" 배경색을 <div> 태그에 적용해 화면에 표시하세요.(100 x 100 크기) -->
+    <div id="root5"></div>
+    <script type="text/babel">
+        const color = 'r';
+
+        const rgb = {
+            'r': 'red',
+            'g': 'green',
+            'b': 'blut',
+        };
+
+        const style = {
+            width: 100,
+            height: 100,
+            backgroundColor: rgb[color]
+        };
+
+        ReactDOM.createRoot(document.getElementById('root5')).render(<div style={style}></div>);
+    </script>
+</body>
+
+</html>
