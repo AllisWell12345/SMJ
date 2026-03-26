@@ -11,59 +11,40 @@
 </head>
 
 <body>
-    <!-- 연습1) 아래 변수에 저장된 값을 <div> 태그로 화면에 표시하세요. -->
-    <div id="root1"></div>
+    <div id="root"></div>
     <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('root'));
 
+        // 연습1) 아래 변수에 저장된 값을 <div> 태그로 화면에 표시하세요.
         const name = 'Tom'
 
-        ReactDOM.createRoot(document.getElementById('root1')).render(<div>{name}</div>);
-    </script>
+        const nameElement = <div>{name}</div>
 
-    <hr>
-    <!-- 연습2) 아래 객체에 저장된 값 중 model 속성만 <div> 태그로 화면에 표시하세요. -->
-    <div id="root2"></div>
-    <script type="text/babel">
+        // 연습2) 아래 객체에 저장된 값 중 model 속성만 <div> 태그로 화면에 표시하세요.
 
         const car = {
             model: 'sorento',
             price: 4000,
         };
 
-        ReactDOM.createRoot(document.getElementById('root2')).render(<div>{car.model}</div>);
-    </script>
+        const carElement = <div>{car.model}</div>
 
-    <hr>
-    <!-- 연습3) 아래 score 값이 60 이상이면 "합격", 아니면 "불합격"을 <div> 태그로 화면에 표시하세요. -->
-    <div id="root3"></div>
-    <script type="text/babel">
+        // 연습3) 아래 score 값이 60 이상이면 "합격", 아니면 "불합격"을 <div> 태그로 화면에 표시하세요.
         const score = 80;
 
-        const resultMessage = score >= 60
-            ? <span>합격</span>
-            : <span>불합격</span>;
+        const scoreElement = score >= 60
+            ? <div>합격</div>
+            : <div>불합격</div>;
 
-        ReactDOM.createRoot(document.getElementById('root3')).render(resultMessage);
-    </script>
-
-    <hr>
-    <!-- 연습4) 아래 변수에 저장된 값이 없으면 "값없음", 값이 있으면 저장된 값을 <div> 태그로 화면에 표시하세요. -->
-    <div id="root4"></div>
-    <script type="text/babel">
+        // 연습4) 아래 변수에 저장된 값이 없으면 "값없음", 값이 있으면 저장된 값을 <div> 태그로 화면에 표시하세요.
 
         let value = 2;
-        const content = value
-            ? <span>{value}</span>
-            : <span>값없음</span>;
+        const valueElement = value
+            ? <div>{value}</div>
+            : <div>값없음</div>;
 
-        ReactDOM.createRoot(document.getElementById('root4')).render(content);
-    </script>
-
-    <hr>
-    <!-- 연습5) 아래 color 값이 "r"이면 "red", "g"이면 "green", "b"이면 "blue" 배경색을 <div> 태그에 적용해 화면에 표시하세요.(100 x 100 크기) -->
-    <div id="root5"></div>
-    <script type="text/babel">
-        const color = 'r';
+        // 연습5) 아래 color 값이 "r"이면 "red", "g"이면 "green", "b"이면 "blue" 배경색을 <div> 태그에 적용해 화면에 표시하세요.(100 x 100 크기)
+        const color = 'g';
 
         const rgb = {
             'r': 'red',
@@ -77,7 +58,16 @@
             backgroundColor: rgb[color]
         };
 
-        ReactDOM.createRoot(document.getElementById('root5')).render(<div style={style}></div>);
+        const colorElement = <div style={style}></div>
+
+
+        root.render([
+            nameElement,
+            carElement,
+            scoreElement,
+            valueElement,
+            colorElement
+        ]);
     </script>
 </body>
 
