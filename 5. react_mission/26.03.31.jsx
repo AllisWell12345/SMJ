@@ -3,17 +3,21 @@ import { useState, useEffect } from "react";
 function Alert() {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
-  const [start] = useState(Date.now());
+  const [start, setStart] = useState(Date.now());
 
   useEffect(() => {
     const data = prompt("문자열을 입력해주세요");
-    setText1(data);
+    setText1(data || "");
+    setStart(Date.now());
   }, []);
 
   const timeCheck = (e) => {
     if (e.key === "Enter") {
-      const value = e.target.value;
-      value === text1 && alert(Date.now() - start);
+      if (e.target.value === text1) {
+        alert((Date.now() - start) / 1000 + "(ms)");
+        setText1("");
+        setText2("");
+      }
     }
   };
 
