@@ -1,0 +1,87 @@
+https://code-diary0.tistory.com/3
+
+안녕하세요. 오늘은 리액트(React) 개발에서 가장 기본적이면서도 중요한
+
+상태 관리(State Management)에 대해 이야기해 보려 합니다. 특히 여러 개의 입력 필드(input)를 다룰 때,
+
+어떻게 코드를 효율적으로 구조화하고 리액트의 핵심 원칙인 불변성을 지킬 수 있는지 실습 사례를 통해 정리했습니다.
+
+1. 문제 정의: "입력 필드가 늘어날수록 코드 부채도 늘어나는가?"
+   보통 회원가입이나 프로필 수정 화면처럼 입력 폼이 많은 경우,
+
+초보 개발자들은 각 input마다 개별적인 useState와 핸들러 함수를 만들곤 합니다.
+하지만 관리해야 할 필드가 10개 이상으로 늘어난다면 코드는 걷잡을 수 없이 비대해지며 유지보수가 불가능해집니다.
+
+저는 이번 실습에서 객체 형태의 상태 관리와 범용 이벤트 핸들러(Generic Event Handler)를 도입하여 이 문제를 해결했습니다.
+
+2. 효율적인 상태 관리 구현 (UserInfo.js)
+   아래는 제가 작성한 실습 코드입니다.
+   userId, userAge, userEmail이라는 세 가지 정보를 하나의 객체 상태로 통합하여 관리하도록 설계했습니다.
+
+import React, { useState } from "react";
+
+function UserInfo() {
+// 1. 초기 상태를 객체로 정의하여 관리 포인트 일원화
+const [user, setUser] = useState({
+userId: "",
+userAge: "",
+userEmail: "",
+});
+
+const handleUserChange = (e) => {
+// 2. Computed Property Names를 활용한 범용 핸들러 구현
+setUser({
+...user, // 전개 연산자를 통한 불변성 유지
+[e.target.name]: e.target.value,
+});
+};
+
+return (
+<>
+<form>
+이름: <input type="text" name="userId" value={user.userId} onChange={handleUserChange} /><br />
+나이: <input type="number" name="userAge" value={user.userAge} onChange={handleUserChange} /><br />
+이메일: <input type="text" name="userEmail" value={user.userEmail} onChange={handleUserChange} />
+</form>
+
+      <h2>실시간 프로필 결과</h2>
+      <h5>
+        {user.userId} ({user.userAge})세 <br />
+        📧 {user.userEmail}
+      </h5>
+    </>
+
+);
+}
+
+export default UserInfo;
+
+이 코드에는 프론트엔드 엔지니어로서 반드시 이해해야 할 두 가지 핵심 개념이 담겨 있습니다.
+
+3-1. 리액트의 렌더링 원칙: 불변성(Immutability)
+리액트의 상태 변경 감지 알고리즘은 얕은 비교(Shallow Comparison)를 수행합니다.
+
+즉, 객체 내부의 값만 바꾸면 리액트는 변화를 감지하지 못합니다.
+
+저는 전개 연산자(...)를 사용하여 기존 객체의 참조값을 완전히 교체함으로써 컴포넌트의 안정적인 리렌더링을 보장했습니다.
+
+3-2. 코드 확장성: Computed Property Names
+[e.target.name]: e.target.value 문법을 사용하면 input의 name 속성값에 따라 해당 필드만 동적으로 업데이트할 수 있습니다.
+
+덕분에 input이 100개로 늘어나도 단 하나의 핸들러 함수로 모든 입력을 처리할 수 있는 구조적 확장성을 확보했습니다.
+
+4. 구현 결과 및 시각화
+   아래 이미지는 실제 코드가 브라우저에서 동작하는 모습입니다.
+
+각 입력 필드에 값을 입력할 때마다 하단의 프로필 정보가 데이터 흐름에 따라 실시간으로 동기화됩니다.
+
+입력 데이터가 상태에 반영되어 화면에 즉각 렌더링되는 모습
+
+5. 인사이트: "성능보다 중요한 것은 예측 가능한 코드입니다"
+   이번 실습을 통해 객체 기반 상태 관리의 효율성을 직접 체감했습니다.
+
+단순히 코드가 짧아지는 것에 그치지 않고, 모든 데이터 업데이트 경로를 하나의 핸들러로
+
+단일화함으로써 데이터 흐름을 예측 가능(Predictable)하게 만들었습니다.
+
+이는 향후 복잡한 비즈니스 로직을 다룰 때 디버깅 시간을 획기적으로 줄여주는 설계 자산이 될 것입니다.
